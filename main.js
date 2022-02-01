@@ -1,17 +1,13 @@
-function reveal() {
-    var reveals = document.querySelectorAll(".reveal");
+const express = require('express');
+const app = express();
+const port = 3001;
 
-    for (var i = 0; i < reveals.length; i++) {
-        var windowHeight = window.innerHeight;
-        var elementTop = reveals[i].getBoundingClientRect().top;
-        var elementVisible = 150;
+app.use(express.static(__dirname));
 
-        if (elementTop < windowHeight - elementVisible) {
-            reveals[i].classList.add("active");
-        } else {
-            reveals[i].classList.remove("active");
-        }
-    }
-}
+app.get('/', (req, res) => {
+  res.sendFile('main.html', { root: __dirname });
+});
 
-window.addEventListener("scroll", reveal);
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}!`)
+});
